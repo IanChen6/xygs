@@ -233,25 +233,25 @@ class gscredit(guoshui):
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "登录失败")
             return False
         try:
-            # dcap = dict(DesiredCapabilities.PHANTOMJS)
-            # dcap["phantomjs.page.settings.userAgent"] = (
-            #     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36')
-            # dcap["phantomjs.page.settings.loadImages"] = True
-            # service_args = []
-            # service_args.append('--webdriver=szgs')
+            dcap = dict(DesiredCapabilities.PHANTOMJS)
+            dcap["phantomjs.page.settings.userAgent"] = (
+                'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36')
+            dcap["phantomjs.page.settings.loadImages"] = True
+            service_args = []
+            service_args.append('--webdriver=szgs')
             # browser = webdriver.PhantomJS(
             #     executable_path='D:/BaiduNetdiskDownload/phantomjs-2.1.1-windows/bin/phantomjs.exe',
             #     desired_capabilities=dcap,service_args=service_args)
-            # # browser = webdriver.PhantomJS(
-            # #     executable_path='/home/tool/phantomjs-2.1.1-linux-x86_64/bin/phantomjs',
-            # #     desired_capabilities=dcap)
-            # browser.implicitly_wait(10)
-            # browser.viewportSize = {'width': 2200, 'height': 2200}
-            # browser.set_window_size(1400, 1600)  # Chrome无法使用这功能
-            options = webdriver.ChromeOptions()
-            options.add_argument('disable-infobars')
-            options.add_argument("--start-maximized")
-            browser = webdriver.Chrome(executable_path='D:/BaiduNetdiskDownload/chromedriver.exe',chrome_options=options)  # 添加driver的路径
+            browser = webdriver.PhantomJS(
+                executable_path='/home/tool/phantomjs-2.1.1-linux-x86_64/bin/phantomjs',
+                desired_capabilities=dcap)
+            browser.implicitly_wait(10)
+            browser.viewportSize = {'width': 2200, 'height': 2200}
+            browser.set_window_size(1400, 1600)  # Chrome无法使用这功能
+            # options = webdriver.ChromeOptions()
+            # options.add_argument('disable-infobars')
+            # options.add_argument("--start-maximized")
+            # browser = webdriver.Chrome(executable_path='D:/BaiduNetdiskDownload/chromedriver.exe',chrome_options=options)  # 添加driver的路径
         except Exception as e:
             self.logger.warn(e)
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "浏览器启动失败")
