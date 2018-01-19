@@ -16,7 +16,6 @@ import json
 import logging
 import time
 import pymssql
-
 import os
 import redis
 import requests
@@ -27,7 +26,6 @@ from selenium.webdriver.support import ui
 from guoshui import guoshui
 from get_db import get_db,job_finish
 import sys
-
 from log_ging.log_01 import create_logger
 
 szxinyong={}
@@ -87,7 +85,9 @@ class gscredit(guoshui):
             self.logger.info("customerid:{}，验证验证码{}".format(self.customerid, tag))
             time_l = time.localtime(int(time.time()))
             time_l = time.strftime("%Y-%m-%d %H:%M:%S", time_l)
+            self.logger.info("customerid:{}，转换tag".format(self.customerid))
             tag = json.dumps(tag)
+            self.logger.info("customerid:{}，转换tag完成".format(self.customerid))
             login_data = '{"nsrsbh":"%s","nsrpwd":"%s","redirectURL":"","tagger":%s,"time":"%s"}' % (
                 self.user, self.jiami(), tag, time_l)
             login_url = 'http://dzswj.szgs.gov.cn/api/auth/clientWt'
