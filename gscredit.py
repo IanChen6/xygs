@@ -88,6 +88,7 @@ class gscredit(guoshui):
             self.logger.info("customerid:{}，转换tag".format(self.customerid))
             tag = json.dumps(tag)
             self.logger.info("customerid:{}，转换tag完成".format(self.customerid))
+            self.logger.info("customerid:{}，{},{},{},{}".format(self.customerid,self.user, self.jiami(), tag, time_l))
             login_data = '{"nsrsbh":"%s","nsrpwd":"%s","redirectURL":"","tagger":%s,"time":"%s"}' % (
                 self.user, self.jiami(), tag, time_l)
             login_url = 'http://dzswj.szgs.gov.cn/api/auth/clientWt'
