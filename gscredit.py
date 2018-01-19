@@ -16,6 +16,8 @@ import json
 import logging
 import time
 import pymssql
+
+import os
 import redis
 import requests
 from lxml import etree
@@ -25,6 +27,8 @@ from selenium.webdriver.support import ui
 from guoshui import guoshui
 from get_db import get_db,job_finish
 import sys
+
+from log_ging.log_01 import create_logger
 
 szxinyong={}
 class gscredit(guoshui):
@@ -651,26 +655,7 @@ class szcredit(object):
         )
         self.insert_db("[dbo].[Python_Serivce_WXWebShenZhen_Add]", params)
 
-def create_logger(level=logging.DEBUG,path="ssss"):
-# create logger
-    logger_name = "example"
-    logger = logging.getLogger(logger_name)
-    logger.setLevel(level)
-# create file handler
-    log_path =  './logs/{}log.log'.format(path)
-    fh = logging.FileHandler(log_path)
-    fh.setLevel(level)
-# CREATE FORMATTER
-    fmt = "%(asctime)s %(levelname)s %(filename)s %(lineno)d %(process)d %(message)s"
-    datefmt = "%a %d %b %Y %H:%M:%S"
-    formatter = logging.Formatter(fmt, datefmt)
-# add handler and formatter to logger
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
-    return logger
-
-logger=create_logger()
-
+logger = create_logger(path=os.path.dirname(sys.argv[0]).split('/')[-1])
 redis_cli = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
 def run_test(user, pwd, batchid, companyid, customerid):
     print("++++++++++++++++++++++++++++++++++++")
