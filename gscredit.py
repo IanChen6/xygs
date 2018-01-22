@@ -755,6 +755,7 @@ def run_test(user, pwd, batchid, companyid, customerid):
     time.sleep(5)
 
     try:
+        szxinyong.clear()
         cd = gscredit(user, pwd, batchid,companyid, customerid, logger)
         browser = cd.excute_spider()
         cn = szxinyong['cn']
