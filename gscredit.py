@@ -14,6 +14,7 @@ import base64
 import hashlib
 import json
 import logging
+import random
 import time
 import pymssql
 import os
@@ -27,6 +28,7 @@ from guoshui import guoshui
 from get_db import get_db,job_finish
 import sys
 from log_ging.log_01 import create_logger
+from urllib.parse import quote
 
 szxinyong={}
 class gscredit(guoshui):
@@ -51,6 +53,7 @@ class gscredit(guoshui):
             # proxy = proxy_list[random.randint(0, len(proxy_list) - 1)]
             try:
                 session.proxies = sys.argv[1]
+
             except:
                 self.logger.info("未传代理参数，启用本机IP")
             # session.proxies = {'https': 'http://116.22.211.55:6897', 'http': 'http://116.22.211.55:6897'}
@@ -648,13 +651,101 @@ class szcredit(object):
         except:
             print("No exist")
 
+        all_urls = []
+        all_gd = []
+        gdjg = {}
+        gdxx = root.xpath('//*[@id="tb_1"]//tr')
+        for i in gdxx[1:]:
+            lianjie = i.xpath('.//@href')[0]
+            lianjie = lianjie.strip()
+            gdm = i.xpath('./td[1]/text()')[0]
+            print(lianjie)
+            all_urls.append(lianjie)
+            all_gd.append(gdm)
+        for j in range(len(all_urls)):
+            clean_dict = {}
+            gd_url = "https://www.szcredit.org.cn/web/gspt/{}".format(all_urls[j])
+            gd_resp = requests.get(url=gd_url, headers=self.headers)
+            gd_resp.encoding = 'gbk'
+            root = etree.HTML(gd_resp.text)
+            gdxq = root.xpath('//table[@class="list"]//tr')
+            a = 1
+            for xq in gdxq[1:]:
+                sb = {}
+                xx = xq.xpath('.//text()')
+                clean = []
+                for s in xx:
+                    s = s.strip()
+                    if s.strip and s is not "":
+                        clean.append(s)
+                print(clean)
+                sb["qymc"] = clean[0]
+                sb["qyzch"] = clean[1]
+                sb["qylx"] = clean[2]
+                sb["clrq"] = clean[3]
+                clean_dict["{}".format(a)] = sb
+                a += 1
+            gdjg[all_gd[j]] = clean_dict
+        print(gdjg)
+
         print(data_dict)
         logger.info(data_dict)
+        data_dict["gdkbqyxq"]=gdjg
         infojson = json.dumps(data_dict, ensure_ascii=False)
         params = (
             self.batchid, self.companyid, self.customerid, self.cn, self.sID, infojson
         )
         self.insert_db("[dbo].[Python_Serivce_WXWebShenZhen_Add]", params)
+
+    def ssdjp(self):
+        ip = ['121.31.159.197', '175.30.238.78', '124.202.247.110']
+        headers = {
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Origin': 'https://app02.szmqs.gov.cn',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+            'x-form-id': 'mobile-signin-form',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Referer': 'https://app02.szmqs.gov.cn/outer/entSelect/gs.html',
+            'X-Forwarded-For': ip[random.randint(0, 2)]
+            # 'Cookie': 'Hm_lvt_5a517db11da5b1952c8edc36c230a5d6=1516416114; Hm_lpvt_5a517db11da5b1952c8edc36c230a5d6=1516416114; JSESSIONID=0000H--QDbjRJc2YKjpIYc_K3bw:-1'
+        }
+        session = requests.session()
+        try:
+            session.proxies = sys.argv[1]
+        except:
+            self.logger.info("未传代理参数，启用本机IP")
+        # name='unifsocicrediden=&entname={}&flag=1'
+        # postdata='unifsocicrediden=&entname={}&flag=1'.format()
+        s=self.sID
+        if s.strip():
+            print('not null')
+            postdata='unifsocicrediden={}&entname=&flag=1'.format(s)
+            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata)
+            gswsj = resp.json()
+            gswsj = gswsj['data']
+            gswsj = gswsj[0]
+            gswsj = gswsj['data']
+            gswsj = json.dumps(gswsj, ensure_ascii=False)
+            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,gswsj)
+            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
+        else:
+            name = self.cn
+            urlname = quote(name)
+            postdata = 'unifsocicrediden=&entname={}&flag=1'.format(urlname)
+            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata)
+            gswsj = resp.json()
+            gswsj = gswsj['data']
+            gswsj = gswsj[0]
+            gswsj = gswsj['data']
+            gswsj = json.dumps(gswsj, ensure_ascii=False)
+            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,gswsj)
+            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
+
+
+
 
 logger = create_logger(path=os.path.dirname(sys.argv[0]).split('/')[-1])
 redis_cli = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
@@ -670,6 +761,7 @@ def run_test(user, pwd, batchid, companyid, customerid):
         sID = szxinyong['xydm']
         credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid,customerid=customerid, logger=logger)
         credit.login()
+        credit.ssdjp()
         job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '成功爬取')
         logger.info("深圳企业信用网信息抓取完成")
     except Exception as e:
