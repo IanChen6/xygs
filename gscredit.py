@@ -728,7 +728,49 @@ class szcredit(object):
             gswsj = gswsj['data']
             gswsj = gswsj[0]
             gswsj = gswsj['data']
-            gswsj = json.dumps(gswsj, ensure_ascii=False)
+            index_dict = gswsj[0]
+            id = index_dict['id']
+            regno = index_dict['regno']
+            opetype = index_dict['opetype']
+            unifsocicrediden = index_dict['unifsocicrediden']
+
+            header2 = {
+                'Origin': 'https://app02.szmqs.gov.cn',
+                # 'Cookie': 'Hm_lvt_5a517db11da5b1952c8edc36c230a5d6=1516416114,1516590080; Hm_lpvt_5a517db11da5b1952c8edc36c230a5d6=1516590080; JSESSIONID=0000CgpyMFWxBHU8MWpcnjFhHx6:-1',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Accept-Language': 'zh-CN,zh;q=0.9',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Referer': 'https://app02.szmqs.gov.cn/outer/entSelect/gs.html',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Connection': 'keep-alive'
+            }
+            xqlist = ['许可经营信息',
+                      '股东信息',
+                      '成员信息',
+                      '变更信息',
+                      '股权质押信息',
+                      '动产抵押信息',
+                      '法院冻结信息',
+                      '经营异常信息',
+                      '严重违法失信信息']
+            tagid = 1
+            djxx = {}
+            djxx["基本信息"] = gswsj
+            for i in xqlist:
+                postdata = 'flag=1&tagId={}&id={}&regno={}&unifsocicrediden={}&opetype={}'.format(tagid, id, regno,
+                                                                                                  unifsocicrediden,
+                                                                                                  opetype)
+                dtresp = requests.post('https://app02.szmqs.gov.cn/outer/entEnt/tag.do', headers=header2, data=postdata)
+                if dtresp.status_code==200:
+                    dt = dtresp.json()
+                    dt = dt['data']
+                    dt = dt[0]
+                    dt = dt['data']
+                    djxx[i] = dt
+                tagid += 1
+            djxx = json.dumps(djxx, ensure_ascii=False)
             params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,gswsj)
             self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
         else:
