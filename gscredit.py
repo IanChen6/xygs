@@ -679,10 +679,10 @@ class szcredit(object):
                     if s.strip and s is not "":
                         clean.append(s)
                 print(clean)
-                sb["qymc"] = clean[0]
-                sb["qyzch"] = clean[1]
-                sb["qylx"] = clean[2]
-                sb["clrq"] = clean[3]
+                sb["企业名称"] = clean[0]
+                sb["企业注册号"] = clean[1]
+                sb["企业类型"] = clean[2]
+                sb["成立日期"] = clean[3]
                 clean_dict["{}".format(a)] = sb
                 a += 1
             gdjg[all_gd[j]] = clean_dict
@@ -690,7 +690,7 @@ class szcredit(object):
 
         print(data_dict)
         logger.info(data_dict)
-        data_dict["gdkbqyxq"]=gdjg
+        data_dict["关联公司信息"]=gdjg
         infojson = json.dumps(data_dict, ensure_ascii=False)
         params = (
             self.batchid, self.companyid, self.customerid, self.cn, self.sID, infojson
