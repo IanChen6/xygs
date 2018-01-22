@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5a278a7-1197-45b6-937e-16e401451265" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/gscredit.py" afterPath="$PROJECT_DIR$/gscredit.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +23,8 @@
       <file leaf-file-name="log_01.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_ging/log_01.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="319">
+              <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -42,8 +43,8 @@
       <file leaf-file-name="gscredit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gscredit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="891" column="36" lean-forward="true" selection-start-line="891" selection-start-column="36" selection-end-line="891" selection-end-column="36" />
+            <state relative-caret-position="474">
+              <caret line="679" column="39" lean-forward="true" selection-start-line="679" selection-start-column="39" selection-end-line="679" selection-end-column="39" />
               <folding>
                 <element signature="e#314#327#0" expanded="true" />
               </folding>
@@ -54,7 +55,7 @@
       <file leaf-file-name="xygslog.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logs/xygslog.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-239">
+            <state relative-caret-position="-65">
               <caret line="143" column="64" lean-forward="true" selection-start-line="143" selection-start-column="64" selection-end-line="143" selection-end-column="64" />
               <folding />
             </state>
@@ -105,6 +106,7 @@
       <find>opto</find>
       <find>gs</find>
       <find>logger</find>
+      <find>gbk</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,6 +116,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/guoshui.py" />
+        <option value="$PROJECT_DIR$/log_ging/log_01.py" />
         <option value="$PROJECT_DIR$/gscredit.py" />
       </list>
     </option>
@@ -125,8 +128,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="302" />
-    <option name="y" value="26" />
+    <option name="x" value="709" />
+    <option name="y" value="73" />
     <option name="width" value="1735" />
     <option name="height" value="980" />
   </component>
@@ -240,7 +243,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="302" y="26" width="1735" height="980" extended-state="0" />
+    <frame x="709" y="73" width="1735" height="980" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -385,7 +388,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_ging/log_01.py">
+    <entry file="file://$PROJECT_DIR$/get_db.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -395,24 +398,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/xygslog.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-239">
+        <state relative-caret-position="-65">
           <caret line="143" column="64" lean-forward="true" selection-start-line="143" selection-start-column="64" selection-end-line="143" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_db.py">
+    <entry file="file://$PROJECT_DIR$/log_ging/log_01.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="319">
+          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gscredit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="891" column="36" lean-forward="true" selection-start-line="891" selection-start-column="36" selection-end-line="891" selection-end-column="36" />
+        <state relative-caret-position="474">
+          <caret line="679" column="39" lean-forward="true" selection-start-line="679" selection-start-column="39" selection-end-line="679" selection-end-column="39" />
           <folding>
             <element signature="e#314#327#0" expanded="true" />
           </folding>
