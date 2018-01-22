@@ -771,7 +771,7 @@ class szcredit(object):
                     djxx[i] = dt
                 tagid += 1
             djxx = json.dumps(djxx, ensure_ascii=False)
-            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,gswsj)
+            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,djxx)
             self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
         else:
             name = self.cn
