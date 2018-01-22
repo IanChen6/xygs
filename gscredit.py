@@ -689,9 +689,9 @@ class szcredit(object):
         print(gdjg)
 
         print(data_dict)
-        logger.info(data_dict)
         data_dict["关联公司信息"]=gdjg
         infojson = json.dumps(data_dict, ensure_ascii=False)
+        self.logger.info(infojson)
         params = (
             self.batchid, self.companyid, self.customerid, self.cn, self.sID, infojson
         )
@@ -796,6 +796,7 @@ class szcredit(object):
                 tagid += 1
             djxx = json.dumps(djxx, ensure_ascii=False)
             params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,djxx)
+            self.logger.info(params)
             self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
         else:
             name = self.cn
@@ -874,6 +875,7 @@ class szcredit(object):
                 tagid += 1
             djxx = json.dumps(djxx, ensure_ascii=False)
             params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,djxx)
+            self.logger.info(params)
             self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
 
 

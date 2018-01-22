@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5a278a7-1197-45b6-937e-16e401451265" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/cookies/9cookies.json" afterPath="$PROJECT_DIR$/cookies/9cookies.json" />
-      <change beforePath="$PROJECT_DIR$/ghostdriver.log" afterPath="$PROJECT_DIR$/ghostdriver.log" />
       <change beforePath="$PROJECT_DIR$/gscredit.py" afterPath="$PROJECT_DIR$/gscredit.py" />
-      <change beforePath="$PROJECT_DIR$/logs/xygslog.log" afterPath="$PROJECT_DIR$/logs/xygslog.log" />
-      <change beforePath="$PROJECT_DIR$/yzm.jpg" afterPath="$PROJECT_DIR$/yzm.jpg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="gscredit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gscredit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="255" column="39" lean-forward="true" selection-start-line="255" selection-start-column="39" selection-end-line="255" selection-end-column="39" />
+            <state relative-caret-position="444">
+              <caret line="891" column="36" lean-forward="true" selection-start-line="891" selection-start-column="36" selection-end-line="891" selection-end-column="36" />
               <folding>
                 <element signature="e#314#327#0" expanded="true" />
               </folding>
@@ -95,7 +91,6 @@
       <find>return</find>
       <find>sys</find>
       <find>cn</find>
-      <find>logger</find>
       <find>sys.a</find>
       <find>web</find>
       <find>jiami</find>
@@ -108,6 +103,8 @@
       <find>not nu</find>
       <find>excut</find>
       <find>opto</find>
+      <find>gs</find>
+      <find>logger</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,8 +125,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="579" />
-    <option name="y" value="128" />
+    <option name="x" value="302" />
+    <option name="y" value="26" />
     <option name="width" value="1735" />
     <option name="height" value="980" />
   </component>
@@ -243,7 +240,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="579" y="128" width="1735" height="980" extended-state="0" />
+    <frame x="302" y="26" width="1735" height="980" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -299,12 +296,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>894</line>
+          <line>896</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>874</line>
+          <line>875</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -314,7 +311,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>809</line>
+          <line>810</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -414,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gscredit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="255" column="39" lean-forward="true" selection-start-line="255" selection-start-column="39" selection-end-line="255" selection-end-column="39" />
+        <state relative-caret-position="444">
+          <caret line="891" column="36" lean-forward="true" selection-start-line="891" selection-start-column="36" selection-end-line="891" selection-end-column="36" />
           <folding>
             <element signature="e#314#327#0" expanded="true" />
           </folding>
