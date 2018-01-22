@@ -729,10 +729,13 @@ class szcredit(object):
             gswsj = gswsj[0]
             gswsj = gswsj['data']
             jbxx = gswsj[0]
-            if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
-                jbxx['营业期限'] = "永续经营"
+            if 'opto' in jbxx.keys():
+                if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
+                    jbxx['营业期限'] = "永续经营"
+                else:
+                    jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
             else:
-                jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
+                jbxx['营业期限'] = "永续经营"
 
             index_dict = gswsj[0]
             id = index_dict['id']
@@ -804,10 +807,13 @@ class szcredit(object):
             gswsj = gswsj[0]
             gswsj = gswsj['data']
             jbxx = gswsj[0]
-            if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
-                jbxx['营业期限'] = "永续经营"
+            if 'opto' in jbxx.keys():
+                if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
+                    jbxx['营业期限'] = "永续经营"
+                else:
+                    jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
             else:
-                jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
+                jbxx['营业期限'] = "永续经营"
 
             index_dict = gswsj[0]
             id = index_dict['id']
