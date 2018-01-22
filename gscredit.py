@@ -766,7 +766,7 @@ def run_test(user, pwd, batchid, companyid, customerid):
         logger.info("深圳企业信用网信息抓取完成")
     except Exception as e:
         logger.error(e)
-        job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '-1', 'error')
+        # job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '-1', 'error')
     print('jobs[ts_id=%s] done' % batchid)
     result = True
     return result
