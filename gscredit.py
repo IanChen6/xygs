@@ -666,7 +666,7 @@ class szcredit(object):
             clean_dict = {}
             gd_url = "https://www.szcredit.org.cn/web/gspt/{}".format(all_urls[j])
             gd_resp = requests.get(url=gd_url, headers=self.headers)
-            gd_resp.encoding = 'utf8'
+            gd_resp.encoding = 'gbk'
             root = etree.HTML(gd_resp.text)
             gdxq = root.xpath('//table[@class="list"]//tr')
             a = 1

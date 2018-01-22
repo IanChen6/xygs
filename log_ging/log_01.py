@@ -19,7 +19,7 @@ def create_logger(level=logging.DEBUG,path="task"):
 
 # create file handler
     log_path = './logs/{}log.log'.format(path)
-    fh = logging.FileHandler(log_path)
+    fh = logging.FileHandler(log_path,encoding='utf8')
     fh.setLevel(level)
 
 # CREATE FORMATTER
