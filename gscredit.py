@@ -728,12 +728,18 @@ class szcredit(object):
             gswsj = gswsj['data']
             gswsj = gswsj[0]
             gswsj = gswsj['data']
+            jbxx = gswsj[0]
+            if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
+                jbxx['营业期限'] = "永续经营"
+            else:
+                jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
+
             index_dict = gswsj[0]
             id = index_dict['id']
             regno = index_dict['regno']
             opetype = index_dict['opetype']
             unifsocicrediden = index_dict['unifsocicrediden']
-
+            pripid = index_dict['entflag']
             header2 = {
                 'Origin': 'https://app02.szmqs.gov.cn',
                 # 'Cookie': 'Hm_lvt_5a517db11da5b1952c8edc36c230a5d6=1516416114,1516590080; Hm_lpvt_5a517db11da5b1952c8edc36c230a5d6=1516590080; JSESSIONID=0000CgpyMFWxBHU8MWpcnjFhHx6:-1',
@@ -757,7 +763,22 @@ class szcredit(object):
                       '严重违法失信信息']
             tagid = 1
             djxx = {}
-            djxx["基本信息"] = gswsj
+            postdata = 'pripid={}&opetype={}'.format(pripid, opetype)
+            nbresp = requests.post('https://app02.szmqs.gov.cn/outer/entEnt/nb.do', headers=header2, data=postdata)
+            if nbresp.status_code == 200:
+                nb = nbresp.json()
+                nb = nb['data']
+                nb = nb[0]
+                nb = nb['data']
+                if len(nb) != 0:
+                    yearnb = ''
+                    for n in nb:
+                        yearnb += "" + n['ancheyear'] + "年报已公示、"
+                else:
+                    yearnb = "无年报信息"
+            jbxx["年报情况"] = yearnb
+            djxx["基本信息"] = jbxx
+
             for i in xqlist:
                 postdata = 'flag=1&tagId={}&id={}&regno={}&unifsocicrediden={}&opetype={}'.format(tagid, id, regno,
                                                                                                   unifsocicrediden,
@@ -782,12 +803,18 @@ class szcredit(object):
             gswsj = gswsj['data']
             gswsj = gswsj[0]
             gswsj = gswsj['data']
+            jbxx = gswsj[0]
+            if jbxx['opto'] == "5000-01-01" or jbxx['opto'] == "1900-01-01" or jbxx['opto'].strip():
+                jbxx['营业期限'] = "永续经营"
+            else:
+                jbxx['营业期限'] = "自" + jbxx['opfrom'] + "起至" + jbxx['opto'] + "止"
+
             index_dict = gswsj[0]
             id = index_dict['id']
             regno = index_dict['regno']
             opetype = index_dict['opetype']
             unifsocicrediden = index_dict['unifsocicrediden']
-
+            pripid = index_dict['entflag']
             header2 = {
                 'Origin': 'https://app02.szmqs.gov.cn',
                 # 'Cookie': 'Hm_lvt_5a517db11da5b1952c8edc36c230a5d6=1516416114,1516590080; Hm_lpvt_5a517db11da5b1952c8edc36c230a5d6=1516590080; JSESSIONID=0000CgpyMFWxBHU8MWpcnjFhHx6:-1',
@@ -811,7 +838,22 @@ class szcredit(object):
                       '严重违法失信信息']
             tagid = 1
             djxx = {}
-            djxx["基本信息"] = gswsj
+            postdata = 'pripid={}&opetype={}'.format(pripid, opetype)
+            nbresp = requests.post('https://app02.szmqs.gov.cn/outer/entEnt/nb.do', headers=header2, data=postdata)
+            if nbresp.status_code == 200:
+                nb = nbresp.json()
+                nb = nb['data']
+                nb = nb[0]
+                nb = nb['data']
+                if len(nb) != 0:
+                    yearnb = ''
+                    for n in nb:
+                        yearnb += "" + n['ancheyear'] + "年报已公示、"
+                else:
+                    yearnb = "无年报信息"
+            jbxx["年报情况"] = yearnb
+            djxx["基本信息"] = jbxx
+
             for i in xqlist:
                 postdata = 'flag=1&tagId={}&id={}&regno={}&unifsocicrediden={}&opetype={}'.format(tagid, id, regno,
                                                                                                   unifsocicrediden,
