@@ -378,6 +378,7 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
+                    continue
                 if resp1 is not None and resp1.status_code == 200 and result:
                     result_dict = result[0]
                     print(result_dict["RecordID"])  # 获取ID
