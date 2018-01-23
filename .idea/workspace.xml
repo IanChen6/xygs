@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/ghostdriver.log" afterPath="$PROJECT_DIR$/ghostdriver.log" />
       <change beforePath="$PROJECT_DIR$/gscredit.py" afterPath="$PROJECT_DIR$/gscredit.py" />
       <change beforePath="$PROJECT_DIR$/logs/xygslog.log" afterPath="$PROJECT_DIR$/logs/xygslog.log" />
+      <change beforePath="$PROJECT_DIR$/yzm.jpg" afterPath="$PROJECT_DIR$/yzm.jpg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/xygs$gscredit.coverage" NAME="gscredit Coverage Results" MODIFIED="1516707669730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/xygs$gscredit.coverage" NAME="gscredit Coverage Results" MODIFIED="1516710439246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="xygs" />
@@ -45,8 +46,8 @@
       <file leaf-file-name="gscredit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gscredit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="359" column="42" lean-forward="true" selection-start-line="359" selection-start-column="42" selection-end-line="359" selection-end-column="42" />
+            <state relative-caret-position="309">
+              <caret line="361" column="0" lean-forward="false" selection-start-line="361" selection-start-column="0" selection-end-line="363" selection-end-column="70" />
               <folding>
                 <element signature="e#314#327#0" expanded="true" />
               </folding>
@@ -57,8 +58,8 @@
       <file leaf-file-name="xygslog.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logs/xygslog.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1586">
-              <caret line="208" column="73" lean-forward="true" selection-start-line="208" selection-start-column="73" selection-end-line="208" selection-end-column="73" />
+            <state relative-caret-position="84">
+              <caret line="690" column="74" lean-forward="false" selection-start-line="690" selection-start-column="74" selection-end-line="690" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -67,8 +68,8 @@
       <file leaf-file-name="guoshui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/guoshui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="117" column="8" lean-forward="false" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
+            <state relative-caret-position="195">
+              <caret line="706" column="32" lean-forward="false" selection-start-line="706" selection-start-column="28" selection-end-line="706" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -85,7 +86,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>应</find>
       <find>纳税人</find>
       <find>user</find>
       <find>user-info1</find>
@@ -114,6 +114,7 @@
       <find>resultlist</find>
       <find>excute</find>
       <find>cookies</find>
+      <find>in p</find>
       <find>excu</find>
     </findStrings>
   </component>
@@ -136,8 +137,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="17" />
-    <option name="y" value="53" />
+    <option name="x" value="282" />
+    <option name="y" value="55" />
     <option name="width" value="1735" />
     <option name="height" value="956" />
   </component>
@@ -251,12 +252,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="17" y="53" width="1735" height="956" extended-state="0" />
+    <frame x="282" y="55" width="1735" height="956" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18833536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18833536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -265,7 +266,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32442284" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32442284" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2228145" sideWeight="0.50383145" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -287,7 +288,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>390</line>
+          <line>395</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -302,32 +303,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>1022</line>
+          <line>1031</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>1001</line>
+          <line>1010</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>826</line>
+          <line>835</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>936</line>
+          <line>945</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>857</line>
+          <line>866</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>793</line>
+          <line>802</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -337,7 +338,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>274</line>
+          <line>279</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -347,16 +348,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>312</line>
+          <line>317</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>302</line>
+          <line>307</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/gscredit.py</url>
+          <line>424</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="28" />
+      <option name="time" value="29" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -543,24 +549,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/guoshui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="117" column="8" lean-forward="false" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
+        <state relative-caret-position="195">
+          <caret line="706" column="32" lean-forward="false" selection-start-line="706" selection-start-column="28" selection-end-line="706" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/xygslog.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1586">
-          <caret line="208" column="73" lean-forward="true" selection-start-line="208" selection-start-column="73" selection-end-line="208" selection-end-column="73" />
+        <state relative-caret-position="84">
+          <caret line="690" column="74" lean-forward="false" selection-start-line="690" selection-start-column="74" selection-end-line="690" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gscredit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="359" column="42" lean-forward="true" selection-start-line="359" selection-start-column="42" selection-end-line="359" selection-end-column="42" />
+        <state relative-caret-position="309">
+          <caret line="361" column="0" lean-forward="false" selection-start-line="361" selection-start-column="0" selection-end-line="363" selection-end-column="70" />
           <folding>
             <element signature="e#314#327#0" expanded="true" />
           </folding>

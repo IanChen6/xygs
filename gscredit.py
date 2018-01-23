@@ -268,8 +268,13 @@ class gscredit(guoshui):
                 return dsdjxx,dssfz
             except Exception as e:
                 self.logger.warn(e)
+                pg=browser.page_source
+                if "抱歉" in pg:
+                    browser.find_element_by_xpath('//button[@type="button"]').click()
                 browser.get("http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/myoffice/myoffice.html")
                 try_times += 1
+                if try_times>3:
+                    return {},{}
 
     def dishui(self, browser):
         self.logger.info("customerid:{}截取地税登记信息".format(self.customerid))
@@ -403,16 +408,20 @@ class gscredit(guoshui):
             browser.get(url=jk_url)
             jbxx=self.gsjbxx(browser,session)
             dsdjxx, dssfz=self.qwdishui(browser)
-            xiangqing={}
-            xiangqing["国税信息"]=jbxx
-            xiangqing["地税信息"]=dsdjxx
-            shuifei={}
-            shuifei["国税税费种信息"]=sfzrd
-            shuifei["地税税费种信息"]=dssfz
-            xiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
-            xiangqing=json.dumps(xiangqing,ensure_ascii=False)
-            shuifei=json.dumps(shuifei,ensure_ascii=False)
-            params=(self.batchid,"0","0",self.companyid,self.customerid,shuifei,xiangqing)
+            dsxiangqing={}
+            gsxiangqing={}
+            gsxiangqing["国税信息"]=jbxx
+            dsxiangqing["地税信息"]=dsdjxx
+            gsshuifei={}
+            dsshuifei={}
+            gsshuifei["国税税费种信息"]=sfzrd
+            dsshuifei["地税税费种信息"]=dssfz
+            dsxiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
+            dsxiangqing=json.dumps(dsxiangqing,ensure_ascii=False)
+            dsshuifei=json.dumps(dsshuifei,ensure_ascii=False)
+            gsxiangqing=json.dumps(gsxiangqing,ensure_ascii=False)
+            gsshuifei=json.dumps(gsshuifei,ensure_ascii=False)
+            params=(self.batchid,"0","0",self.companyid,self.customerid,gsxiangqing,gsshuifei,dsxiangqing,dsshuifei)
             self.logger.info(params)
             self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '1', '成功爬取')
