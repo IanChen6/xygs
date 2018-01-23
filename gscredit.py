@@ -378,7 +378,7 @@ class szcredit(object):
                 detai_url = 'https://www.szcredit.org.cn/web/gspt/newGSPTDetail3.aspx?ID={}'.format(
                     result_dict["RecordID"])
                 detail = session.get(url=detai_url, headers=self.headers, timeout=30)
-                detail.encoding = 'utf8'
+                detail.encoding = detail.apparent_encoding
                 root = etree.HTML(detail.text)  # 将request.content 转化为 Element
                 self.parse(root)
             return
@@ -666,7 +666,7 @@ class szcredit(object):
             clean_dict = {}
             gd_url = "https://www.szcredit.org.cn/web/gspt/{}".format(all_urls[j])
             gd_resp = requests.get(url=gd_url, headers=self.headers)
-            gd_resp.encoding = 'gbk'
+            gd_resp.encoding = gd_resp.apparent_encoding
             root = etree.HTML(gd_resp.text)
             gdxq = root.xpath('//table[@class="list"]//tr')
             a = 1
