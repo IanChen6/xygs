@@ -295,6 +295,7 @@ class gscredit(guoshui):
             browser.get(url=jk_url)
             jbxx=self.gsjbxx(browser,session)
             params=(self.batchid,"0","0",self.companyid,self.customerid,sfzrd,jbxx)
+            self.logger.info(params)
             self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '1', '成功爬取')
             print("爬取完成")
