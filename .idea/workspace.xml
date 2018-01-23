@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5a278a7-1197-45b6-937e-16e401451265" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/cookies/5590cookies.json" afterPath="$PROJECT_DIR$/cookies/5590cookies.json" />
-      <change beforePath="$PROJECT_DIR$/ghostdriver.log" afterPath="$PROJECT_DIR$/ghostdriver.log" />
       <change beforePath="$PROJECT_DIR$/gscredit.py" afterPath="$PROJECT_DIR$/gscredit.py" />
-      <change beforePath="$PROJECT_DIR$/logs/xygslog.log" afterPath="$PROJECT_DIR$/logs/xygslog.log" />
-      <change beforePath="$PROJECT_DIR$/yzm.jpg" afterPath="$PROJECT_DIR$/yzm.jpg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="gscredit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gscredit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="361" column="0" lean-forward="false" selection-start-line="361" selection-start-column="0" selection-end-line="363" selection-end-column="70" />
+            <state relative-caret-position="-261">
+              <caret line="337" column="8" lean-forward="false" selection-start-line="337" selection-start-column="8" selection-end-line="337" selection-end-column="8" />
               <folding>
                 <element signature="e#314#327#0" expanded="true" />
               </folding>
@@ -303,32 +299,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>1031</line>
+          <line>1032</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>1010</line>
+          <line>1011</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>835</line>
+          <line>836</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>945</line>
+          <line>946</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>866</line>
+          <line>867</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gscredit.py</url>
-          <line>802</line>
+          <line>803</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -565,8 +561,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gscredit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="361" column="0" lean-forward="false" selection-start-line="361" selection-start-column="0" selection-end-line="363" selection-end-column="70" />
+        <state relative-caret-position="-261">
+          <caret line="337" column="8" lean-forward="false" selection-start-line="337" selection-start-column="8" selection-end-line="337" selection-end-column="8" />
           <folding>
             <element signature="e#314#327#0" expanded="true" />
           </folding>

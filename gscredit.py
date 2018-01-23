@@ -416,7 +416,7 @@ class gscredit(guoshui):
             dsshuifei={}
             gsshuifei["国税税费种信息"]=sfzrd
             dsshuifei["地税税费种信息"]=dssfz
-            dsxiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
+            gsxiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
             dsxiangqing=json.dumps(dsxiangqing,ensure_ascii=False)
             dsshuifei=json.dumps(dsshuifei,ensure_ascii=False)
             gsxiangqing=json.dumps(gsxiangqing,ensure_ascii=False)
@@ -506,6 +506,7 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
+                    time.sleep(2)
                     continue
                 if resp1 is not None and resp1.status_code == 200 and result:
                     result_dict = result[0]
