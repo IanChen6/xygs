@@ -185,6 +185,7 @@ class gscredit(guoshui):
         wait = ui.WebDriverWait(browser, 10)
         browser.find_element_by_css_selector('#zsxm input').send_keys("全部")
         browser.find_element_by_css_selector("#stepnext").click()
+        time.sleep(3)
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//table[@id="mini-grid-table-bodysfz-grid"]/tbody/tr')
@@ -199,6 +200,7 @@ class gscredit(guoshui):
             dt['申报期限']=shuizhong[5]
             sfz[shuizhong[0]]=dt
         sfz=json.dumps(sfz,ensure_ascii=False)
+        self.logger.info("customerid{}税费种信息{}:".format(self.customerid, sfz))
         return sfz
     def gsjbxx(self,browser,session):
         content = browser.page_source
@@ -217,8 +219,11 @@ class gscredit(guoshui):
         szxinyong['cn']=nsrmc
         jcsj={}
         jcsj["jcxx"]=nsrxx
+        self.logger.info("customerid:{},基础信息{}".format(self.customerid,jcsj["jcxx"]))
         jcsj['xxxx']=jbxx
+        self.logger.info("customerid:{},详细信息{}".format(self.customerid,jcsj['xxxx']))
         jcsj=json.dumps(jcsj,ensure_ascii=False)
+        self.logger.info("customerid:{},json信息{}".format(self.customerid,jcsj))
         return jcsj
 
 
@@ -282,6 +287,7 @@ class gscredit(guoshui):
             browser.get(url=shenbao_url)
             time.sleep(3)
             sfzrd=self.gssfzrd(browser)
+            self.logger.info("customerid{}税费种信息{}:".format(self.customerid,sfzrd))
         except Exception as e:
             self.logger.info("customerid:{}SFZ出错".format(self.customerid))
             self.logger.warn(e)
