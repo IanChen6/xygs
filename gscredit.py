@@ -237,7 +237,7 @@ class gscredit(guoshui):
                 self.logger.warn("customerid:{}账号和密码不匹配".format(self.customerid))
                 job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-2', "账号和密码不匹配")
                 return
-            with open('cookies/{}cookies.json'.format(self.customerid), 'w') as f:  # 将login后的cookies提取出来
+            with open('cookies/{}cookies.json'.format(self.batchid), 'w') as f:  # 将login后的cookies提取出来
                 f.write(jsoncookies)
                 f.close()
         except Exception as e:
@@ -273,7 +273,7 @@ class gscredit(guoshui):
             index_url = "http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/myoffice/myoffice.html"
             browser.get(url=index_url)
             browser.delete_all_cookies()
-            with open('cookies/{}cookies.json'.format(self.customerid), 'r', encoding='utf8') as f:
+            with open('cookies/{}cookies.json'.format(self.batchid), 'r', encoding='utf8') as f:
                 cookielist = json.loads(f.read())
             for (k, v) in cookielist.items():
                 browser.add_cookie({
