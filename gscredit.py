@@ -199,7 +199,7 @@ class gscredit(guoshui):
             dt['有效期止']=shuizhong[4]
             dt['申报期限']=shuizhong[5]
             sfz[shuizhong[0]]=dt
-        sfz=json.dumps(sfz,ensure_ascii=False)
+        # sfz=json.dumps(sfz,ensure_ascii=False)
         self.logger.info("customerid{}税费种信息{}:".format(self.customerid, sfz))
         return sfz
     def gsjbxx(self,browser,session):
@@ -222,11 +222,113 @@ class gscredit(guoshui):
         self.logger.info("customerid:{},基础信息{}".format(self.customerid,jcsj["jcxx"]))
         jcsj['xxxx']=jbxx
         self.logger.info("customerid:{},详细信息{}".format(self.customerid,jcsj['xxxx']))
-        jcsj=json.dumps(jcsj,ensure_ascii=False)
+
+        #资格查询
+        browser.get('http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrzgxxcx/nsrzgrdxxcx.html')
+        browser.find_element_by_xpath('//input[@id="nsrsbh$text"]').send_keys(self.user)
+        browser.find_element_by_css_selector("#stepnext").click()
+        time.sleep(2)
+        content = browser.page_source
+        root = etree.HTML(content)
+        select = root.xpath('//table[@id="mini-grid-table-bodyzgrdxxGrid"]/tbody/tr')
+        gszgcx={}
+        for i in select[1:]:
+            tiaomu={}
+            zgtb=i.xpath('.//text()')
+            title=['序号','纳税人资格认定名称','认定日期','有效期起','有效期止']
+            for j in range(len(zgtb)):
+                tiaomu[title[j]]=zgtb[j]
+            gszgcx[zgtb[0]]=tiaomu
+
+        jcsj['纳税人资格查询']=gszgcx
+        # jcsj=json.dumps(jcsj,ensure_ascii=False)
         self.logger.info("customerid:{},json信息{}".format(self.customerid,jcsj))
         return jcsj
 
+    # 前往地税
+    def qwdishui(self, browser):
+        try_times = 0
+        while try_times <= 3:
+            ds_url = 'http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sb/djsxx/djsxx.html'
+            browser.get(url=ds_url)
+            self.logger.info("customerid:{}开始登录地税".format(self.customerid))
+            wait = ui.WebDriverWait(browser, 10)
+            try:
+                wait.until(lambda browser: browser.find_element_by_css_selector("#mini-29 .mini-button-text"))
+                browser.find_element_by_css_selector("#mini-29 .mini-button-text").click()
+            except:
+                print("无该弹窗")
+            try:
+                browser.find_element_by_css_selector("#mini-27 .mini-button-text").click()
+            except:
+                print("无该弹窗")
+            browser.find_element_by_xpath("//a[@href='javascript:gotoDs()']").click()
+            try:
+                dsdjxx, dssfz=self.dishui(browser)
+                return dsdjxx,dssfz
+            except Exception as e:
+                self.logger.warn(e)
+                browser.get("http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/myoffice/myoffice.html")
+                try_times += 1
 
+    def dishui(self, browser):
+        self.logger.info("customerid:{}截取地税登记信息".format(self.customerid))
+        time.sleep(2)
+        windows = browser.window_handles
+        window1 = browser.current_window_handle
+        for c_window in windows:
+            if c_window != window1:
+                browser.close()
+                browser.switch_to_window(c_window)
+        wait = ui.WebDriverWait(browser, 10)
+        wait.until(
+            lambda browser: browser.find_element_by_css_selector("#layui-layer1 div.layui-layer-btn a"))  # timeout
+        browser.find_element_by_css_selector('#layui-layer1 div.layui-layer-btn a').click()
+        browser.find_element_by_css_selector('#menu_110000_110109').click()
+        time.sleep(2)
+        browser.switch_to_frame('qyIndex')
+        browser.switch_to_frame('qymain')
+        time.sleep(2)  # 容易timeout
+        content = browser.page_source
+        root = etree.HTML(content)
+        select = root.xpath('//div[@id="content"]//tbody/tr')
+        dsdjxx={}
+        a=0
+        for i in select:
+            dsdjxx1 = {}
+            a+=1
+            dsdjtb=i.xpath('.//text()')
+            l=map(lambda x:x.strip(),dsdjtb)
+            l=list(l)
+            dsdjtb = list(filter(lambda x: x.strip(), l))
+            for j in range(0,len(dsdjtb),2):
+                dsdjxx1[dsdjtb[j]]=dsdjtb[j+1]
+                end=j+1
+                endflag=len(dsdjtb)-1
+                if end == endflag:
+                    dsdjxx[a] = dsdjxx1
+                    break
+        #地税税费种认定信息
+        browser.switch_to_default_content()
+        browser.switch_to_frame('qyIndex')
+        browser.find_element_by_css_selector('#menu3_4_110101').click()
+        browser.switch_to_frame('qymain')
+        wait.until(
+            lambda browser: browser.find_element_by_css_selector("#btn_query"))  # timeout
+        browser.find_element_by_css_selector('#btn_query').click()
+        time.sleep(2)
+        content = browser.page_source
+        root = etree.HTML(content)
+        select = root.xpath('//table[@id="dataTab"]/tbody/tr')
+        dssfz={}
+        for i in select:
+            tiaomu={}
+            dssfztb=i.xpath('.//text()')
+            title=['序号','征收项目','征收品目','申报期限','纳税期限','税率','征收代理方式','有效期起','有效期止']
+            for j in range(len(dssfztb)):
+                tiaomu[title[j]]=dssfztb[j]
+            dssfz[dssfztb[0]]=tiaomu
+        return dsdjxx,dssfz
 
     def excute_spider(self):
         try:
@@ -300,7 +402,17 @@ class gscredit(guoshui):
             jk_url = 'http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrjbxxcx/nsrjbxxcx.html'
             browser.get(url=jk_url)
             jbxx=self.gsjbxx(browser,session)
-            params=(self.batchid,"0","0",self.companyid,self.customerid,sfzrd,jbxx)
+            dsdjxx, dssfz=self.qwdishui(browser)
+            xiangqing={}
+            xiangqing["国税信息"]=jbxx
+            xiangqing["地税信息"]=dsdjxx
+            shuifei={}
+            shuifei["国税税费种信息"]=sfzrd
+            shuifei["地税税费种信息"]=dssfz
+            xiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
+            xiangqing=json.dumps(xiangqing,ensure_ascii=False)
+            shuifei=json.dumps(shuifei,ensure_ascii=False)
+            params=(self.batchid,"0","0",self.companyid,self.customerid,shuifei,xiangqing)
             self.logger.info(params)
             self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '1', '成功爬取')
