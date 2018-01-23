@@ -342,46 +342,52 @@ class szcredit(object):
         cur.close()
 
     def login(self):
-        session = requests.session()
-        try:
-            session.proxies = sys.argv[1]
-        except:
-            self.logger.info("未传代理参数，启用本机IP")
-        yzm_url = 'https://www.szcredit.org.cn/web/WebPages/Member/CheckCode.aspx?'
-        yzm = session.get(url=yzm_url, headers=self.headers)
-        for q in self.query:
-            # 处理验证码
-            with open("yzm.jpg", "wb") as f:
-                f.write(yzm.content)
-                f.close()
-            with open('yzm.jpg', 'rb') as f:
-                base64_data = str(base64.b64encode(f.read()))
-                base64_data = "data:image/jpg;base64," + base64_data[2:-1]
-                post_data = {"a": 2, "b": base64_data}
-                post_data = json.dumps({"a": 2, "b": base64_data})
-                res = session.post(url="http://39.108.112.203:8002/mycode.ashx", data=post_data)
-                # print(res.text)
-                f.close()
-            postdata = {'action': 'GetEntList',
-                        'keyword': q,
-                        'type': 'query',
-                        'ckfull': 'false',
-                        'yzmResult': res.text
-                        }
-            resp1 = session.post(url='https://www.szcredit.org.cn/web/AJax/Ajax.ashx', headers=self.headers,
-                                 data=postdata)
-            resp = resp1.json()
-            result = resp['resultlist']
-            if resp1 is not None and resp1.status_code == 200 and result:
-                result_dict = result[0]
-                print(result_dict["RecordID"])  # 获取ID
-                detai_url = 'https://www.szcredit.org.cn/web/gspt/newGSPTDetail3.aspx?ID={}'.format(
-                    result_dict["RecordID"])
-                detail = session.get(url=detai_url, headers=self.headers, timeout=30)
-                detail.encoding = detail.apparent_encoding
-                root = etree.HTML(detail.text)  # 将request.content 转化为 Element
-                self.parse(root)
-            return
+        for t in range(3):
+            session = requests.session()
+            try:
+                session.proxies = sys.argv[1]
+            except:
+                self.logger.info("未传代理参数，启用本机IP")
+            yzm_url = 'https://www.szcredit.org.cn/web/WebPages/Member/CheckCode.aspx?'
+            yzm = session.get(url=yzm_url, headers=self.headers)
+            for q in self.query:
+                # 处理验证码
+                with open("yzm.jpg", "wb") as f:
+                    f.write(yzm.content)
+                    f.close()
+                with open('yzm.jpg', 'rb') as f:
+                    base64_data = str(base64.b64encode(f.read()))
+                    base64_data = "data:image/jpg;base64," + base64_data[2:-1]
+                    post_data = {"a": 2, "b": base64_data}
+                    post_data = json.dumps({"a": 2, "b": base64_data})
+                    res = session.post(url="http://39.108.112.203:8002/mycode.ashx", data=post_data)
+                    # print(res.text)
+                    f.close()
+                postdata = {'action': 'GetEntList',
+                            'keyword': q,
+                            'type': 'query',
+                            'ckfull': 'false',
+                            'yzmResult': res.text
+                            }
+                resp1 = session.post(url='https://www.szcredit.org.cn/web/AJax/Ajax.ashx', headers=self.headers,
+                                     data=postdata)
+                resp = resp1.json()
+                try:
+                    result = resp['resultlist']
+                except Exception as e:
+                    self.logger.warn(e)
+                    self.logger.info(resp)
+                    self.logger.info("网络连接失败")
+                if resp1 is not None and resp1.status_code == 200 and result:
+                    result_dict = result[0]
+                    print(result_dict["RecordID"])  # 获取ID
+                    detai_url = 'https://www.szcredit.org.cn/web/gspt/newGSPTDetail3.aspx?ID={}'.format(
+                        result_dict["RecordID"])
+                    detail = session.get(url=detai_url, headers=self.headers, timeout=30)
+                    detail.encoding = detail.apparent_encoding
+                    root = etree.HTML(detail.text)  # 将request.content 转化为 Element
+                    self.parse(root)
+                return
 
     def parse(self, root):
         title = root.xpath('//*[@id="Table31"]//li[@class="current"]')
