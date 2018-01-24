@@ -407,7 +407,11 @@ class gscredit(guoshui):
             jk_url = 'http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrjbxxcx/nsrjbxxcx.html'
             browser.get(url=jk_url)
             jbxx=self.gsjbxx(browser,session)
-            dsdjxx, dssfz=self.qwdishui(browser)
+            try:
+                dsdjxx, dssfz=self.qwdishui(browser)
+            except Exception as e:
+                self.logger.warn(e)
+                self.logger.info("地税失败")
             dsxiangqing={}
             gsxiangqing={}
             gsxiangqing["国税信息"]=jbxx
@@ -430,7 +434,7 @@ class gscredit(guoshui):
             browser.quit()
         except Exception as e:
             self.logger.warn(e)
-            job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "JBXX失败")
+            job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "数据库插入失败")
             browser.quit()
 
 class szcredit(object):
@@ -506,7 +510,8 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
-                    time.sleep(2)
+                    sleep_time = [3, 2, 1.5, 2.7,3.9, 2.5, 3.1, 2.4, 2.8,2.6]
+                    time.sleep(sleep_time[random.randint(0, 9)])
                     continue
                 if resp1 is not None and resp1.status_code == 200 and result:
                     result_dict = result[0]
@@ -1047,6 +1052,8 @@ def run_test(user, pwd, batchid, companyid, customerid):
 while True:
     # ss=redis_cli.lindex("list",0)
     ss = redis_cli.lpop("sz_credit_list")
+    sleep_time = [3, 2, 5, 7, 9, 10, 1, 4, 8, 6]
+    time.sleep(sleep_time[random.randint(0, 9)])
     if ss is not None:
         # print(redis_cli.lpop("list"))
         sd = json.loads(ss)
