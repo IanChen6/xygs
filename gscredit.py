@@ -1029,7 +1029,11 @@ def run_test(user, pwd, batchid, companyid, customerid):
         cn = szxinyong['cn']
         sID = szxinyong['xydm']
         credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid,customerid=customerid, logger=logger)
-        credit.login()
+        try:
+            credit.login()
+        except Exception as e:
+            logger.info("信用网爬取失败")
+            logger.info(e)
         credit.ssdjp()
         job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '成功爬取')
         logger.info("深圳企业信用网信息抓取完成")
