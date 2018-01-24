@@ -532,7 +532,7 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
-                    sleep_time = [3, 2, 1.5, 2.7,3.9, 2.5, 3.1, 2.4, 2.8,2.6]
+                    sleep_time = [3,4,3.5,4.5,3.2,3.8,3.1,3.7,3.3,3.6]
                     time.sleep(sleep_time[random.randint(0, 9)])
                     continue
                 if resp1 is not None and resp1.status_code == 200 and result:
@@ -886,7 +886,7 @@ class szcredit(object):
         if s.strip():
             print('not null')
             postdata='unifsocicrediden={}&entname=&flag=1'.format(s)
-            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata)
+            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata,timeout=30)
             self.logger.info(resp.text)
             gswsj = resp.json()
             gswsj = gswsj['data']
@@ -967,6 +967,7 @@ class szcredit(object):
             urlname = quote(name)
             postdata = 'unifsocicrediden=&entname={}&flag=1'.format(urlname)
             resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata)
+            self.logger.info(resp.text)
             gswsj = resp.json()
             gswsj = gswsj['data']
             gswsj = gswsj[0]
