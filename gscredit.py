@@ -524,6 +524,7 @@ class szcredit(object):
                             }
                 resp1 = session.post(url='https://www.szcredit.org.cn/web/AJax/Ajax.ashx', headers=self.headers,
                                      data=postdata)
+                self.logger.info(resp1.text)
                 resp = resp1.json()
                 try:
                     result = resp['resultlist']
@@ -886,6 +887,7 @@ class szcredit(object):
             print('not null')
             postdata='unifsocicrediden={}&entname=&flag=1'.format(s)
             resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata)
+            self.logger.info(resp.text)
             gswsj = resp.json()
             gswsj = gswsj['data']
             gswsj = gswsj[0]
@@ -1056,11 +1058,15 @@ def run_test(user, pwd, batchid, companyid, customerid):
         sID = szxinyong['xydm']
         credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid,customerid=customerid, logger=logger)
         try:
+            credit.ssdjp()
+        except Exception as e:
+            logger.warn(e)
+            logger.warn("工商网爬取失败")
+        try:
             credit.login()
         except Exception as e:
             logger.info("信用网爬取失败")
             logger.info(e)
-        credit.ssdjp()
         job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '成功爬取')
         logger.info("深圳企业信用网信息抓取完成")
     except Exception as e:
