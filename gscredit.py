@@ -307,10 +307,13 @@ class gscredit(guoshui):
             l=list(l)
             dsdjtb = list(filter(lambda x: x.strip(), l))
             for j in range(0,len(dsdjtb),2):
-                dsdjxx1[dsdjtb[j]]=dsdjtb[j+1]
+                if j+1 ==len(dsdjtb):
+                    dsdjxx1[dsdjtb[j]] = ""
+                else:
+                    dsdjxx1[dsdjtb[j]]=dsdjtb[j+1]
                 end=j+1
                 endflag=len(dsdjtb)-1
-                if end == endflag:
+                if end >= endflag:
                     dsdjxx[a] = dsdjxx1
                     break
         #地税税费种认定信息
@@ -374,6 +377,7 @@ class gscredit(guoshui):
             # browser = webdriver.Chrome(executable_path='D:/BaiduNetdiskDownload/chromedriver.exe',chrome_options=options)  # 添加driver的路径
         except Exception as e:
             self.logger.warn(e)
+            self.logger.warn("浏览器启动失败")
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "浏览器启动失败")
             return False
         try:
@@ -435,14 +439,23 @@ class gscredit(guoshui):
             gsshuifei=json.dumps(gsshuifei,ensure_ascii=False)
             params=(self.batchid,"0","0",self.companyid,self.customerid,gsxiangqing,gsshuifei,dsxiangqing,dsshuifei)
             self.logger.info(params)
-            self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
+            try:
+                self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
+            except Exception as e:
+                self.logger.info("数据库插入失败")
+                self.logger.warn(e)
+                job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1',
+                           "数据库插入失败")
+                browser.quit()
+                return False
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '1', '成功爬取')
             print("爬取完成")
             self.logger.info("customerid:{}全部爬取完成".format(self.customerid))
             browser.quit()
         except Exception as e:
             self.logger.warn(e)
-            job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "数据库插入失败")
+            self.logger.warn("数据异常")
+            job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "数据异常")
             browser.quit()
 
 class szcredit(object):
