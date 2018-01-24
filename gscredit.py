@@ -406,7 +406,15 @@ class gscredit(guoshui):
             # JBXXCX
             jk_url = 'http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrjbxxcx/nsrjbxxcx.html'
             browser.get(url=jk_url)
-            jbxx=self.gsjbxx(browser,session)
+            try:
+                jbxx=self.gsjbxx(browser,session)
+            except Exception as e:
+                self.logger.info(e)
+                self.logger.info("国税基本查询失败")
+                job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1',
+                           "gs查询失败")
+                browser.quit()
+                return False
             try:
                 dsdjxx, dssfz=self.qwdishui(browser)
             except Exception as e:
