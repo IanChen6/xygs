@@ -25,14 +25,16 @@ from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.support import ui
 from guoshui import guoshui
-from get_db import get_db,job_finish
+from get_db import get_db, job_finish
 import sys
 from log_ging.log_01 import create_logger
 from urllib.parse import quote
 
-szxinyong={}
+szxinyong = {}
+
+
 class gscredit(guoshui):
-    def __init__(self, user, pwd, batchid,companyid, customerid, logger):
+    def __init__(self, user, pwd, batchid, companyid, customerid, logger):
         # self.logger = create_logger(path=os.path.basename(__file__) + str(customerid))
         self.logger = logger
         self.user = user
@@ -41,12 +43,13 @@ class gscredit(guoshui):
         self.companyid = companyid
         self.customerid = customerid
         self.host, self.port, self.db = get_db(companyid)
+
     def login(self):
         try_times = 0
         while try_times <= 14:
             self.logger.info('customerid:{},开始尝试登陆'.format(self.customerid))
             try_times += 1
-            if try_times>10:
+            if try_times > 10:
                 time.sleep(1)
             session = requests.session()
             # proxy_list = get_all_proxie()
@@ -91,7 +94,7 @@ class gscredit(guoshui):
             self.logger.info("customerid:{}，转换tag".format(self.customerid))
             tag = json.dumps(tag)
             self.logger.info("customerid:{}，转换tag完成".format(self.customerid))
-            self.logger.info("customerid:{}，{},{},{},{}".format(self.customerid,self.user, self.jiami(), tag, time_l))
+            self.logger.info("customerid:{}，{},{},{},{}".format(self.customerid, self.user, self.jiami(), tag, time_l))
             login_data = '{"nsrsbh":"%s","nsrpwd":"%s","redirectURL":"","tagger":%s,"time":"%s"}' % (
                 self.user, self.jiami(), tag, time_l)
             login_url = 'http://dzswj.szgs.gov.cn/api/auth/clientWt'
@@ -107,12 +110,13 @@ class gscredit(guoshui):
                         cookies = {}
                         for (k, v) in zip(session.cookies.keys(), session.cookies.values()):
                             cookies[k] = v
-                        return cookies,session
-                    elif "账户和密码不匹配" in resp.json()['message'] or "不存在" in resp.json()['message'] or "已注销" in resp.json()['message']:
+                        return cookies, session
+                    elif "账户和密码不匹配" in resp.json()['message'] or "不存在" in resp.json()['message'] or "已注销" in \
+                            resp.json()['message']:
                         print('账号和密码不匹配')
                         self.logger.info('customerid:{}账号和密码不匹配'.format(self.customerid))
-                        status="账号和密码不匹配"
-                        return status,session
+                        status = "账号和密码不匹配"
+                        return status, session
                     else:
                         time.sleep(3)
             except Exception as e:
@@ -168,12 +172,13 @@ class gscredit(guoshui):
                     cookies = {}
                     for (k, v) in zip(session.cookies.keys(), session.cookies.values()):
                         cookies[k] = v
-                    return cookies,session
-                elif "账户和密码不匹配" in resp.json()['message'] or "不存在" in resp.json()['message'] or "已注销" in resp.json()['message']:
+                    return cookies, session
+                elif "账户和密码不匹配" in resp.json()['message'] or "不存在" in resp.json()['message'] or "已注销" in resp.json()[
+                    'message']:
                     print('账号和密码不匹配')
                     self.logger.info('customerid:{}账号和密码不匹配'.format(self.customerid))
                     status = "账号和密码不匹配"
-                    return status,session
+                    return status, session
                 else:
                     time.sleep(3)
             else:
@@ -181,7 +186,7 @@ class gscredit(guoshui):
         self.logger.warn("{}登陆失败".format(self.customerid))
         return False
 
-    def gssfzrd(self,browser):
+    def gssfzrd(self, browser):
         wait = ui.WebDriverWait(browser, 10)
         browser.find_element_by_css_selector('#zsxm input').send_keys("全部")
         browser.find_element_by_css_selector("#stepnext").click()
@@ -189,41 +194,42 @@ class gscredit(guoshui):
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//table[@id="mini-grid-table-bodysfz-grid"]/tbody/tr')
-        sfz ={}
+        sfz = {}
         for i in select[1:]:
-            dt={}
+            dt = {}
             shuizhong = i.xpath('.//text()')
-            dt['税种']=shuizhong[1]
-            dt['税目']=shuizhong[2]
-            dt['有效期起']=shuizhong[3]
-            dt['有效期止']=shuizhong[4]
-            dt['申报期限']=shuizhong[5]
-            sfz[shuizhong[0]]=dt
+            dt['税种'] = shuizhong[1]
+            dt['税目'] = shuizhong[2]
+            dt['有效期起'] = shuizhong[3]
+            dt['有效期止'] = shuizhong[4]
+            dt['申报期限'] = shuizhong[5]
+            sfz[shuizhong[0]] = dt
         # sfz=json.dumps(sfz,ensure_ascii=False)
         self.logger.info("customerid{}税费种信息{}:".format(self.customerid, sfz))
         return sfz
-    def gsjbxx(self,browser,session):
+
+    def gsjbxx(self, browser, session):
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//div[@class="user-info1"]//div')
-        nsrxx ={}
+        nsrxx = {}
         for i in select[1:]:
             shuizhong = i.xpath('.//text()')
-            nsrxx[shuizhong[0]]=shuizhong[1]
-        jbxx=session.get("http://dzswj.szgs.gov.cn/gzcx/gzcxAction_queryNsrxxBynsrsbh.do").json()
-        jbxx=jbxx["data"]
-        data=jbxx[0]
-        shxydm=data['shxydm']
-        nsrmc=data['nsrmc']
-        szxinyong['xydm']=shxydm
-        szxinyong['cn']=nsrmc
-        jcsj={}
-        jcsj["jcxx"]=nsrxx
-        self.logger.info("customerid:{},基础信息{}".format(self.customerid,jcsj["jcxx"]))
-        jcsj['xxxx']=jbxx
-        self.logger.info("customerid:{},详细信息{}".format(self.customerid,jcsj['xxxx']))
+            nsrxx[shuizhong[0]] = shuizhong[1]
+        jbxx = session.get("http://dzswj.szgs.gov.cn/gzcx/gzcxAction_queryNsrxxBynsrsbh.do").json()
+        jbxx = jbxx["data"]
+        data = jbxx[0]
+        shxydm = data['shxydm']
+        nsrmc = data['nsrmc']
+        szxinyong['xydm'] = shxydm
+        szxinyong['cn'] = nsrmc
+        jcsj = {}
+        jcsj["jcxx"] = nsrxx
+        self.logger.info("customerid:{},基础信息{}".format(self.customerid, jcsj["jcxx"]))
+        jcsj['xxxx'] = jbxx
+        self.logger.info("customerid:{},详细信息{}".format(self.customerid, jcsj['xxxx']))
 
-        #资格查询
+        # 资格查询
         browser.get('http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrzgxxcx/nsrzgrdxxcx.html')
         browser.find_element_by_xpath('//input[@id="nsrsbh$text"]').send_keys(self.user)
         browser.find_element_by_css_selector("#stepnext").click()
@@ -231,18 +237,18 @@ class gscredit(guoshui):
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//table[@id="mini-grid-table-bodyzgrdxxGrid"]/tbody/tr')
-        gszgcx={}
+        gszgcx = {}
         for i in select[1:]:
-            tiaomu={}
-            zgtb=i.xpath('.//text()')
-            title=['序号','纳税人资格认定名称','认定日期','有效期起','有效期止']
+            tiaomu = {}
+            zgtb = i.xpath('.//text()')
+            title = ['序号', '纳税人资格认定名称', '认定日期', '有效期起', '有效期止']
             for j in range(len(zgtb)):
-                tiaomu[title[j]]=zgtb[j]
-            gszgcx[zgtb[0]]=tiaomu
+                tiaomu[title[j]] = zgtb[j]
+            gszgcx[zgtb[0]] = tiaomu
 
-        jcsj['纳税人资格查询']=gszgcx
+        jcsj['纳税人资格查询'] = gszgcx
         # jcsj=json.dumps(jcsj,ensure_ascii=False)
-        self.logger.info("customerid:{},json信息{}".format(self.customerid,jcsj))
+        self.logger.info("customerid:{},json信息{}".format(self.customerid, jcsj))
         return jcsj
 
     # 前往地税
@@ -264,17 +270,17 @@ class gscredit(guoshui):
                 print("无该弹窗")
             browser.find_element_by_xpath("//a[@href='javascript:gotoDs()']").click()
             try:
-                dsdjxx, dssfz=self.dishui(browser)
-                return dsdjxx,dssfz
+                dsdjxx, dssfz = self.dishui(browser)
+                return dsdjxx, dssfz
             except Exception as e:
                 self.logger.warn(e)
-                pg=browser.page_source
+                pg = browser.page_source
                 if "抱歉" in pg:
                     browser.find_element_by_xpath('//button[@type="button"]').click()
                 browser.get("http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/myoffice/myoffice.html")
                 try_times += 1
-                if try_times>3:
-                    return {},{}
+                if try_times > 3:
+                    return {}, {}
 
     def dishui(self, browser):
         self.logger.info("customerid:{}截取地税登记信息".format(self.customerid))
@@ -297,26 +303,26 @@ class gscredit(guoshui):
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//div[@id="content"]//tbody/tr')
-        dsdjxx={}
-        a=0
+        dsdjxx = {}
+        a = 0
         for i in select:
             dsdjxx1 = {}
-            a+=1
-            dsdjtb=i.xpath('.//text()')
-            l=map(lambda x:x.strip(),dsdjtb)
-            l=list(l)
+            a += 1
+            dsdjtb = i.xpath('.//text()')
+            l = map(lambda x: x.strip(), dsdjtb)
+            l = list(l)
             dsdjtb = list(filter(lambda x: x.strip(), l))
-            for j in range(0,len(dsdjtb),2):
-                if j+1 ==len(dsdjtb):
+            for j in range(0, len(dsdjtb), 2):
+                if j + 1 == len(dsdjtb):
                     dsdjxx1[dsdjtb[j]] = ""
                 else:
-                    dsdjxx1[dsdjtb[j]]=dsdjtb[j+1]
-                end=j+1
-                endflag=len(dsdjtb)-1
+                    dsdjxx1[dsdjtb[j]] = dsdjtb[j + 1]
+                end = j + 1
+                endflag = len(dsdjtb) - 1
                 if end >= endflag:
                     dsdjxx[a] = dsdjxx1
                     break
-        #地税税费种认定信息
+        # 地税税费种认定信息
         browser.switch_to_default_content()
         browser.switch_to_frame('qyIndex')
         browser.find_element_by_css_selector('#menu3_4_110101').click()
@@ -328,24 +334,25 @@ class gscredit(guoshui):
         content = browser.page_source
         root = etree.HTML(content)
         select = root.xpath('//table[@id="dataTab"]/tbody/tr')
-        dssfz={}
+        dssfz = {}
         for i in select:
-            tiaomu={}
-            dssfztb=i.xpath('.//text()')
-            title=['序号','征收项目','征收品目','申报期限','纳税期限','税率','征收代理方式','有效期起','有效期止']
+            tiaomu = {}
+            dssfztb = i.xpath('.//text()')
+            title = ['序号', '征收项目', '征收品目', '申报期限', '纳税期限', '税率', '征收代理方式', '有效期起', '有效期止']
             for j in range(len(dssfztb)):
-                tiaomu[title[j]]=dssfztb[j]
-            dssfz[dssfztb[0]]=tiaomu
-        return dsdjxx,dssfz
+                tiaomu[title[j]] = dssfztb[j]
+            dssfz[dssfztb[0]] = tiaomu
+        return dsdjxx, dssfz
 
     def excute_spider(self):
         try:
-            cookies,session = self.login()
+            cookies, session = self.login()
             self.logger.info("customerid:{}获取cookies".format(self.customerid))
-            jsoncookies = json.dumps(cookies,ensure_ascii=False)
+            jsoncookies = json.dumps(cookies, ensure_ascii=False)
             if "账号和密码不匹配" in jsoncookies:
                 self.logger.warn("customerid:{}账号和密码不匹配".format(self.customerid))
-                job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-2', "账号和密码不匹配")
+                job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-2',
+                           "账号和密码不匹配")
                 return
             with open('cookies/{}cookies.json'.format(self.batchid), 'w') as f:  # 将login后的cookies提取出来
                 f.write(jsoncookies)
@@ -397,8 +404,8 @@ class gscredit(guoshui):
             browser.get(url="http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/myoffice/myoffice.html")
             browser.get(url=shenbao_url)
             time.sleep(3)
-            sfzrd=self.gssfzrd(browser)
-            self.logger.info("customerid{}税费种信息{}:".format(self.customerid,sfzrd))
+            sfzrd = self.gssfzrd(browser)
+            self.logger.info("customerid{}税费种信息{}:".format(self.customerid, sfzrd))
         except Exception as e:
             self.logger.info("customerid:{}SFZ出错".format(self.customerid))
             self.logger.warn(e)
@@ -411,7 +418,7 @@ class gscredit(guoshui):
             jk_url = 'http://dzswj.szgs.gov.cn/BsfwtWeb/apps/views/sscx/nsrjbxxcx/nsrjbxxcx.html'
             browser.get(url=jk_url)
             try:
-                jbxx=self.gsjbxx(browser,session)
+                jbxx = self.gsjbxx(browser, session)
             except Exception as e:
                 self.logger.info(e)
                 self.logger.info("国税基本查询失败")
@@ -420,27 +427,28 @@ class gscredit(guoshui):
                 browser.quit()
                 return False
             try:
-                dsdjxx, dssfz=self.qwdishui(browser)
+                dsdjxx, dssfz = self.qwdishui(browser)
             except Exception as e:
                 self.logger.warn(e)
                 self.logger.info("地税失败")
-            dsxiangqing={}
-            gsxiangqing={}
-            gsxiangqing["国税信息"]=jbxx
-            dsxiangqing["地税信息"]=dsdjxx
-            gsshuifei={}
-            dsshuifei={}
-            gsshuifei["国税税费种信息"]=sfzrd
-            dsshuifei["地税税费种信息"]=dssfz
-            gsxiangqing["账号详情"]={'账号':self.user,'密码':self.pwd}
-            dsxiangqing=json.dumps(dsxiangqing,ensure_ascii=False)
-            dsshuifei=json.dumps(dsshuifei,ensure_ascii=False)
-            gsxiangqing=json.dumps(gsxiangqing,ensure_ascii=False)
-            gsshuifei=json.dumps(gsshuifei,ensure_ascii=False)
-            params=(self.batchid,"0","0",self.companyid,self.customerid,gsxiangqing,gsshuifei,dsxiangqing,dsshuifei)
+            dsxiangqing = {}
+            gsxiangqing = {}
+            gsxiangqing["国税信息"] = jbxx
+            dsxiangqing["地税信息"] = dsdjxx
+            gsshuifei = {}
+            dsshuifei = {}
+            gsshuifei["国税税费种信息"] = sfzrd
+            dsshuifei["地税税费种信息"] = dssfz
+            gsxiangqing["账号详情"] = {'账号': self.user, '密码': self.pwd}
+            dsxiangqing = json.dumps(dsxiangqing, ensure_ascii=False)
+            dsshuifei = json.dumps(dsshuifei, ensure_ascii=False)
+            gsxiangqing = json.dumps(gsxiangqing, ensure_ascii=False)
+            gsshuifei = json.dumps(gsshuifei, ensure_ascii=False)
+            params = (
+            self.batchid, "0", "0", self.companyid, self.customerid, gsxiangqing, gsshuifei, dsxiangqing, dsshuifei)
             self.logger.info(params)
             try:
-                self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]",params)
+                self.insert_db("[dbo].[Python_Serivce_GSTaxInfo_Add]", params)
             except Exception as e:
                 self.logger.info("数据库插入失败")
                 self.logger.warn(e)
@@ -458,8 +466,9 @@ class gscredit(guoshui):
             job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1', "数据异常")
             browser.quit()
 
+
 class szcredit(object):
-    def __init__(self, cn, sID, batchid, companyid, customerid,logger):
+    def __init__(self, cn, sID, batchid, companyid, customerid, logger):
         self.headers = {'Accept': 'application/json, text/javascript, */*; q=0.01',
                         'Accept-Language': 'zh-CN,zh;q=0.9',
                         'Accept-Encoding': 'gzip, deflate, br',
@@ -472,15 +481,14 @@ class szcredit(object):
                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
                         'X-Requested-With': 'XMLHttpRequest',
                         }
-        self.logger=logger
+        self.logger = logger
         self.batchid = batchid
         self.cn = cn
         self.sID = sID
         self.companyid = companyid
         self.customerid = customerid
-        self.query = [sID,cn]
+        self.query = [sID, cn]
         self.host, self.port, self.db = get_db(companyid)
-
 
     def insert_db(self, sql, params):
         conn = pymssql.connect(host=self.host, port=self.port, user='Python', password='pl,okmPL<OKM',
@@ -505,6 +513,12 @@ class szcredit(object):
             yzm = session.get(url=yzm_url, headers=self.headers)
             for q in self.query:
                 # 处理验证码
+                try:
+                    if not q.strip():
+                        self.logger.info(q)
+                        continue
+                except:
+                    self.logger.info(q)
                 with open("yzm.jpg", "wb") as f:
                     f.write(yzm.content)
                     f.close()
@@ -532,7 +546,7 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
-                    sleep_time = [3,4,3.5,4.5,3.2,3.8,3.1,3.7,3.3,3.6]
+                    sleep_time = [3, 4, 3.5, 4.5, 3.2, 3.8, 3.1, 3.7, 3.3, 3.6]
                     time.sleep(sleep_time[random.randint(0, 9)])
                     continue
                 if resp1 is not None and resp1.status_code == 200 and result:
@@ -800,7 +814,6 @@ class szcredit(object):
             for i in range(len(t_list)):
                 data_dict[t_list[i]] = tb_list[i]
 
-
             if "企业变更信息" in data_dict.keys():
                 d1 = {}
                 get_data = data_dict["企业变更信息"]
@@ -852,7 +865,7 @@ class szcredit(object):
         print(gdjg)
 
         print(data_dict)
-        data_dict["关联公司信息"]=gdjg
+        data_dict["关联公司信息"] = gdjg
         infojson = json.dumps(data_dict, ensure_ascii=False)
         self.logger.info(infojson)
         params = (
@@ -882,11 +895,12 @@ class szcredit(object):
             self.logger.info("未传代理参数，启用本机IP")
         # name='unifsocicrediden=&entname={}&flag=1'
         # postdata='unifsocicrediden=&entname={}&flag=1'.format()
-        s=self.sID
+        s = self.sID
         if s.strip():
             print('not null')
-            postdata='unifsocicrediden={}&entname=&flag=1'.format(s)
-            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata,timeout=30)
+            postdata = 'unifsocicrediden={}&entname=&flag=1'.format(s)
+            resp = session.post('https://app02.szmqs.gov.cn/outer/entEnt/detail.do', headers=headers, data=postdata,
+                                timeout=30)
             self.logger.info(resp.text)
             gswsj = resp.json()
             gswsj = gswsj['data']
@@ -951,7 +965,7 @@ class szcredit(object):
                                                                                                   unifsocicrediden,
                                                                                                   opetype)
                 dtresp = requests.post('https://app02.szmqs.gov.cn/outer/entEnt/tag.do', headers=header2, data=postdata)
-                if dtresp.status_code==200:
+                if dtresp.status_code == 200:
                     dt = dtresp.json()
                     dt = dt['data']
                     dt = dt[0]
@@ -959,9 +973,9 @@ class szcredit(object):
                     djxx[i] = dt
                 tagid += 1
             djxx = json.dumps(djxx, ensure_ascii=False)
-            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,djxx)
+            params = (self.batchid, self.companyid, self.customerid, self.cn, self.sID, djxx)
             self.logger.info(params)
-            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
+            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]', params)
         else:
             name = self.cn
             urlname = quote(name)
@@ -1031,7 +1045,7 @@ class szcredit(object):
                                                                                                   unifsocicrediden,
                                                                                                   opetype)
                 dtresp = requests.post('https://app02.szmqs.gov.cn/outer/entEnt/tag.do', headers=header2, data=postdata)
-                if dtresp.status_code==200:
+                if dtresp.status_code == 200:
                     dt = dtresp.json()
                     dt = dt['data']
                     dt = dt[0]
@@ -1039,13 +1053,15 @@ class szcredit(object):
                     djxx[i] = dt
                 tagid += 1
             djxx = json.dumps(djxx, ensure_ascii=False)
-            params=(self.batchid,self.companyid,self.customerid,self.cn,self.sID,djxx)
+            params = (self.batchid, self.companyid, self.customerid, self.cn, self.sID, djxx)
             self.logger.info(params)
-            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]',params)
+            self.insert_db('[dbo].[Python_Serivce_GSWebShenZhen_Add]', params)
 
 
 logger = create_logger(path=os.path.dirname(sys.argv[0]).split('/')[-1])
 redis_cli = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+
+
 def run_test(user, pwd, batchid, companyid, customerid):
     print("++++++++++++++++++++++++++++++++++++")
     print('jobs[ts_id=%s] running....' % batchid)
@@ -1053,21 +1069,29 @@ def run_test(user, pwd, batchid, companyid, customerid):
 
     try:
         szxinyong.clear()
-        cd = gscredit(user, pwd, batchid,companyid, customerid, logger)
+        cd = gscredit(user, pwd, batchid, companyid, customerid, logger)
         browser = cd.excute_spider()
         cn = szxinyong['cn']
         sID = szxinyong['xydm']
-        credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid,customerid=customerid, logger=logger)
+        credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid, customerid=customerid, logger=logger)
         try:
             credit.ssdjp()
         except Exception as e:
             logger.warn(e)
             logger.warn("工商网爬取失败")
+            goshng_dict = {"1": cn, "2": sID, "3": batchid, "4": companyid,
+                         "5": customerid, "6": sd["6"], "7": sd["7"], "8": sd["8"]}
+            pjson = json.dumps(goshng_dict,ensure_ascii=False)
+            redis_cli.lpush("gongshang",pjson)
         try:
             credit.login()
         except Exception as e:
             logger.info("信用网爬取失败")
             logger.info(e)
+            xinyong_dict = {"1": cn, "2": sID, "3": batchid, "4": companyid,
+                         "5": customerid, "6": sd["6"], "7": sd["7"], "8": sd["8"]}
+            pjson = json.dumps(xinyong_dict,ensure_ascii=False)
+            redis_cli.lpush("xinyong",pjson)
         job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '成功爬取')
         logger.info("深圳企业信用网信息抓取完成")
     except Exception as e:
@@ -1076,6 +1100,7 @@ def run_test(user, pwd, batchid, companyid, customerid):
     print('jobs[ts_id=%s] done' % batchid)
     result = True
     return result
+
 
 while True:
     # ss=redis_cli.lindex("list",0)
