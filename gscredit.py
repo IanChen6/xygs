@@ -519,10 +519,10 @@ class szcredit(object):
                         continue
                 except:
                     self.logger.info(q)
-                with open("yzm.jpg", "wb") as f:
+                with open("{}yzm.jpg".format(self.batchid), "wb") as f:
                     f.write(yzm.content)
                     f.close()
-                with open('yzm.jpg', 'rb') as f:
+                with open("{}yzm.jpg".format(self.batchid), 'rb') as f:
                     base64_data = str(base64.b64encode(f.read()))
                     base64_data = "data:image/jpg;base64," + base64_data[2:-1]
                     post_data = {"a": 2, "b": base64_data}
@@ -846,7 +846,7 @@ class szcredit(object):
             root = etree.HTML(gd_resp.text)
             gdxq = root.xpath('//table[@class="list"]//tr')
             a = 1
-            for xq in gdxq[1:]:
+            for xq in gdxq[1:21]:
                 sb = {}
                 xx = xq.xpath('.//text()')
                 clean = []
