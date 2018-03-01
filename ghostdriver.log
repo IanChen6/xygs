@@ -1,28 +1,5 @@
-[INFO  - 2018-01-29T06:58:51.840Z] GhostDriver - Main - running on port 30897
-[INFO  - 2018-01-29T06:58:52.969Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36","webSecurityEnabled":true}
-[INFO  - 2018-01-29T06:58:52.969Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.customHeaders:  - {}
-[INFO  - 2018-01-29T06:58:52.969Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36","phantomjs.page.settings.loadImages":true}
-[INFO  - 2018-01-29T06:58:52.970Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ddb58460-04c1-11e8-92ef-573d9250a034
-[ERROR - 2018-01-29T06:58:53.238Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.onError - msg: ReferenceError: Can't find variable: mini
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2018-01-29T06:58:53.238Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.onError - stack:
-  global code (http://dzswj.szgs.gov.cn/BsfwtWeb/apps/js/miniui-plugin.js:54)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2018-01-29T06:58:53.286Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.onError - msg: ReferenceError: Can't find variable: mini
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2018-01-29T06:58:53.286Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.onError - stack:
-  (anonymous function) (http://dzswj.szgs.gov.cn/BsfwtWeb/apps/js/message.js:389)
-  c (http://dzswj.szgs.gov.cn/BsfwtWeb/lib/jquery/jquery.min.js:4)
-  fireWith (http://dzswj.szgs.gov.cn/BsfwtWeb/lib/jquery/jquery.min.js:4)
-  ready (http://dzswj.szgs.gov.cn/BsfwtWeb/lib/jquery/jquery.min.js:4)
-  q (http://dzswj.szgs.gov.cn/BsfwtWeb/lib/jquery/jquery.min.js:4)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2018-01-29T06:59:14.978Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1517209154954
-
-  phantomjs://platform/console++.js:263 in error
-[INFO  - 2018-01-29T06:59:15.877Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36","webSecurityEnabled":true}
-[INFO  - 2018-01-29T06:59:15.877Z] Session [ddb58460-04c1-11e8-92ef-573d9250a034] - page.customHeaders:  - {}
+[INFO  - 2018-03-01T03:36:18.642Z] GhostDriver - Main - running on port 24468
+[INFO  - 2018-03-01T03:36:19.771Z] Session [b4a4c470-1d01-11e8-9fab-354f905367d7] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36","webSecurityEnabled":true}
+[INFO  - 2018-03-01T03:36:19.771Z] Session [b4a4c470-1d01-11e8-9fab-354f905367d7] - page.customHeaders:  - {}
+[INFO  - 2018-03-01T03:36:19.771Z] Session [b4a4c470-1d01-11e8-9fab-354f905367d7] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36","phantomjs.page.settings.loadImages":true}
+[INFO  - 2018-03-01T03:36:19.771Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b4a4c470-1d01-11e8-9fab-354f905367d7

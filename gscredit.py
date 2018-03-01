@@ -215,7 +215,10 @@ class gscredit(guoshui):
         nsrxx = {}
         for i in select[1:]:
             shuizhong = i.xpath('.//text()')
-            nsrxx[shuizhong[0]] = shuizhong[1]
+            if len(shuizhong)==2:
+                nsrxx[shuizhong[0]] = shuizhong[1]
+            elif len(shuizhong)==1:
+                nsrxx[shuizhong[0]]=""
         jbxx = session.get("http://dzswj.szgs.gov.cn/gzcx/gzcxAction_queryNsrxxBynsrsbh.do").json()
         jbxx = jbxx["data"]
         data = jbxx[0]
