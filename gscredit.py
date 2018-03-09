@@ -34,7 +34,7 @@ szxinyong = {}
 
 
 class gscredit(guoshui):
-    def __init__(self, user, pwd, batchid, companyid, customerid, logger):
+    def __init__(self, user, pwd, batchid, companyid, customerid, logger,companyname):
         # self.logger = create_logger(path=os.path.basename(__file__) + str(customerid))
         self.logger = logger
         self.user = user
@@ -43,6 +43,7 @@ class gscredit(guoshui):
         self.companyid = companyid
         self.customerid = customerid
         self.host, self.port, self.db = get_db(companyid)
+        self.companyname=companyname
 
     def login(self):
         try_times = 0
@@ -427,6 +428,9 @@ class gscredit(guoshui):
                 self.logger.info("国税基本查询失败")
                 job_finish(self.host, self.port, self.db, self.batchid, self.companyid, self.customerid, '-1',
                            "gs查询失败")
+                browser.quit()
+                return False
+            if self.companyname!=szxinyong['cn'] and not self.companyname:
                 browser.quit()
                 return False
             try:
@@ -1069,12 +1073,14 @@ def run_test(user, pwd, batchid, companyid, customerid):
     print("++++++++++++++++++++++++++++++++++++")
     print('jobs[ts_id=%s] running....' % batchid)
     time.sleep(5)
-
     try:
         szxinyong.clear()
-        cd = gscredit(user, pwd, batchid, companyid, customerid, logger)
+        cd = gscredit(user, pwd, batchid, companyid, customerid, logger,sd["9"])
         browser = cd.excute_spider()
         cn = szxinyong['cn']
+        if sd['9'] !=cn and not sd["9"]:
+            job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '公司信息和账号不一致')
+            return False
         sID = szxinyong['xydm']
         credit = szcredit(cn=cn, sID=sID, batchid=batchid, companyid=companyid, customerid=customerid, logger=logger)
         try:
