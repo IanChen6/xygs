@@ -553,7 +553,7 @@ class szcredit(object):
                     self.logger.warn(e)
                     self.logger.info(resp)
                     self.logger.info("网络连接失败")
-                    sleep_time = [3, 4, 3.5, 4.5, 3.2, 3.8, 3.1, 3.7, 3.3, 3.6]
+                    sleep_time = [5.2, 4.7, 5.8, 4.5, 5, 4.1, 5.5, 5.7, 5.3, 6.6]
                     time.sleep(sleep_time[random.randint(0, 9)])
                     continue
                 if resp1 is not None and resp1.status_code == 200 and result:
