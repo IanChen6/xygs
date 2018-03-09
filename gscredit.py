@@ -430,7 +430,7 @@ class gscredit(guoshui):
                            "gs查询失败")
                 browser.quit()
                 return False
-            if self.companyname!=szxinyong['cn'] and not self.companyname:
+            if self.companyname!=szxinyong['cn'] and self.companyname:
                 browser.quit()
                 return False
             try:
@@ -1078,7 +1078,7 @@ def run_test(user, pwd, batchid, companyid, customerid):
         cd = gscredit(user, pwd, batchid, companyid, customerid, logger,sd["9"])
         browser = cd.excute_spider()
         cn = szxinyong['cn']
-        if sd['9'] !=cn and not sd["9"]:
+        if sd['9'] !=cn and sd["9"]:
             job_finish(sd["6"], sd["7"], sd["8"], sd["3"], sd["4"], sd["5"], '1', '公司信息和账号不一致')
             return False
         sID = szxinyong['xydm']
