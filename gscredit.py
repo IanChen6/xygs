@@ -513,7 +513,11 @@ class szcredit(object):
         for t in range(3):
             session = requests.session()
             try:
-                session.proxies = sys.argv[1]
+                self.logger.info(type(sys.argv[1]))
+                proxy = sys.argv[1].replace("'", '"')
+                self.logger.info(proxy)
+                proxy = json.loads(proxy)
+                session.proxies = proxy
             except:
                 self.logger.info("未传代理参数，启用本机IP")
             yzm_url = 'https://www.szcredit.org.cn/web/WebPages/Member/CheckCode.aspx?'
@@ -561,7 +565,35 @@ class szcredit(object):
                     print(result_dict["RecordID"])  # 获取ID
                     detai_url = 'https://www.szcredit.org.cn/web/gspt/newGSPTDetail3.aspx?ID={}'.format(
                         result_dict["RecordID"])
+                    session = requests.session()
+                    try:
+                        self.logger.info(type(sys.argv[1]))
+                        proxy=sys.argv[1].replace("'", '"')
+                        self.logger.info(proxy)
+                        proxy=json.loads(proxy)
+                        session.proxies = proxy
+                    except Exception as e:
+                        self.logger.info(e)
+                        self.logger.info("未传代理参数，启用本机IP")
                     detail = session.get(url=detai_url, headers=self.headers, timeout=30)
+                    for i in range(3):
+                        if self.cn not in detail.text:
+                            self.logger.info("您的查询过于频繁，请稍候再查")
+                            sleep_time = [13, 14, 13.5, 14.5, 13.2, 13.8, 13.1, 13.7, 13.3, 13.6]
+                            time.sleep(sleep_time[random.randint(0, 9)])
+                            session = requests.session()
+                            try:
+                                proxy = sys.argv[1].replace("'", '"')
+                                self.logger.info(proxy)
+                                proxy = json.loads(proxy)
+                                session.proxies = proxy
+                            except:
+                                self.logger.info("未传代理参数，启用本机IP")
+                            detail=session.get(detai_url,headers=self.headers,timeout=30)
+                            if self.cn in detail.text:
+                                break
+                            else:
+                                return 4
                     detail.encoding = detail.apparent_encoding
                     root = etree.HTML(detail.text)  # 将request.content 转化为 Element
                     self.parse(root)
